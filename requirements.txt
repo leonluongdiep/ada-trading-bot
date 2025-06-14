@@ -1,0 +1,8 @@
+﻿ccxt==4.3.74
+pandas==2.2.2
+numpy==1.26.4
+requests==2.31.0
+cryptography==42.0.8
+python-dotenv==1.0.1
+flask==3.0.3
+websockets==12.0
