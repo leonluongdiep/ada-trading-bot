@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitget R Script Canvas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+            background: linear-gradient(135deg, #0f1419 0%, #1a2332 50%, #0f1419 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: auto;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: linear-gradient(45deg, #1e3a8a, #3b82f6);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+        }
+        
+        .header h1 {
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+        
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .status-card {
+            background: linear-gradient(145deg, #1f2937, #374151);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #4b5563;
+            transition: transform 0.3s ease;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-3px);
+        }
+        
+        .status-icon {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+        
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section {
+            background: linear-gradient(145deg, #1f2937, #374151);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid #4b5563;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            color: #60a5fa;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #3b82f6;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-title .icon {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+        
+        .code-block {
+            background: #0d1117;
+            border: 1px solid #30363d;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', monospace;
+            font-size: 0.9rem;
+            position: relative;
+        }
+        
+        .code-block pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .copy-btn:hover {
+            opacity: 1;
+        }
+        
+        .step-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .step-list li {
+            padding: 12px;
+            margin: 8px 0;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 8px;
+            border-left: 4px solid #3b82f6;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .step-number {
+            background: #3b82f6;
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+            font-size: 0.9rem;
+        }
+        
+        .error-section {
+            background: linear-gradient(145deg, #7f1d1d, #991b1b);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .warning-section {
+            background: linear-gradient(145deg, #92400e, #d97706);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .success-section {
+            background: linear-gradient(145deg, #065f46, #10b981);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .test-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .test-btn {
+            background: linear-gradient(45deg, #3b82f6, #1e40af);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: transform 0.3s ease;
+            font-size: 1rem;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.4);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(45deg, #dc2626, #991b1b);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(45deg, #10b981, #059669);
+        }
+        
+        .function-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .function-card {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid #10b981;
+            border-radius: 10px;
+            padding: 15px;
+        }
+        
+        .function-card h4 {
+            color: #10b981;
+            margin-bottom: 10px;
+        }
+        
+        .live-status {
+            background: linear-gradient(145deg, #7c2d12, #ea580c);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .env-setup {
+            background: rgba(168, 85, 247, 0.1);
+            border: 1px solid #a855f7;
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📊 Bitget R Script Canvas</h1>
+            <p>spotassets_bitget.R - Interactive Setup & Testing</p>
+        </div>
+
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-icon">🔧</div>
+                <h3>Setup Status</h3>
+                <p>Environment Check</p>
+            </div>
+            <div class="status-card">
+                <div class="status-icon">🔑</div>
+                <h3>API Keys</h3>
+                <p>Credentials Setup</p>
+            </div>
+            <div class="status-card">
+                <div class="status-icon">📡</div>
+                <h3>Connection</h3>
+                <p>Bitget API Test</p>
+            </div>
+            <div class="status-card">
+                <div class="status-icon">📈</div>
+                <h3>Live Data</h3>
+                <p>Asset Analysis</p>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">🚀</span>
+                    Quick Start Guide
+                </h2>
+                <ol class="step-list">
+                    <li>
+                        <span class="step-number">1</span>
+                        <div>
+                            <strong>VNC Verbindung:</strong><br>
+                            VNC Client → 91.99.11.170:5901
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">2</span>
+                        <div>
+                            <strong>Positron öffnen:</strong><br>
+                            Desktop → Positron IDE starten
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">3</span>
+                        <div>
+                            <strong>Script laden:</strong><br>
+                            /home/trading/ada-trading/r_analysis/spotassets_bitget.R
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-number">4</span>
+                        <div>
+                            <strong>Environment prüfen:</strong><br>
+                            API Keys und Packages checken
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">
+                    <span class="icon">⚙️</span>
+                    Environment Setup
+                </h2>
+                <div class="code-block">
+                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    <pre># R Packages installieren
+install.packages(c("httr", "jsonlite", "openssl", "dotenv"))
+
+# Libraries laden
+library(httr)
+library(jsonlite)
+library(openssl)
+
+# Working Directory setzen
+setwd("/home/trading/ada-trading/r_analysis")</pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="env-setup">
+            <h2 class="section-title">
+                <span class="icon">🔐</span>
+                API Credentials Setup
+            </h2>
+            <p><strong>Option 1: .env File (Empfohlen)</strong></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Erstelle .env file in /home/trading/ada-trading/configs/
+nano ~/ada-trading/configs/.env
+
+# Inhalt:
+BITGET_API_KEY=dein_api_key_hier
+BITGET_API_SECRET=dein_secret_hier
+BITGET_PASSPHRASE=dein_passphrase_hier</pre>
+            </div>
+            
+            <p><strong>Option 2: Direkt im Script</strong></p>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Im R Script uncomment und ausfüllen:
+api_key <- "dein_api_key_hier"
+api_secret <- "dein_secret_hier"
+passphrase <- "dein_passphrase_hier"</pre>
+            </div>
+        </div>
+
+        <div class="live-status">
+            <h2>🎯 Verfügbare Funktionen</h2>
+            <div class="function-grid">
+                <div class="function-card">
+                    <h4>get_assets()</h4>
+                    <p>Zeigt alle Account Balances</p>
+                </div>
+                <div class="function-card">
+                    <h4>get_positions()</h4>
+                    <p>Alle offenen Positionen</p>
+                </div>
+                <div class="function-card">
+                    <h4>get_active_positions()</h4>
+                    <p>Nur aktive Positionen</p>
+                </div>
+                <div class="function-card">
+                    <h4>place_tp_sl_orders()</h4>
+                    <p>Take Profit & Stop Loss</p>
+                </div>
+                <div class="function-card">
+                    <h4>get_plan_orders()</h4>
+                    <p>Aktive TP/SL Orders</p>
+                </div>
+                <div class="function-card">
+                    <h4>main()</h4>
+                    <p>Komplettes Dashboard</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">🧪</span>
+                Testing Commands
+            </h2>
+            <div class="test-buttons">
+                <button class="test-btn" onclick="showCode('basic_test')">Basic API Test</button>
+                <button class="test-btn" onclick="showCode('assets_test')">Assets Check</button>
+                <button class="test-btn" onclick="showCode('positions_test')">Positions Check</button>
+                <button class="test-btn success" onclick="showCode('full_dashboard')">Full Dashboard</button>
+            </div>
+            
+            <div id="test-code" class="code-block" style="display: none;">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre id="test-content"></pre>
+            </div>
+        </div>
+
+        <div class="error-section">
+            <h2>❌ Häufige Fehler & Lösungen</h2>
+            <ul>
+                <li><strong>Missing API credentials:</strong> .env File prüfen oder direkt im Script setzen</li>
+                <li><strong>Package not found:</strong> install.packages() ausführen</li>
+                <li><strong>Network timeout:</strong> Internet-Verbindung prüfen</li>
+                <li><strong>API Error 40001:</strong> Falsche API Keys</li>
+                <li><strong>API Error 40013:</strong> API Keys haben keine Trading-Berechtigung</li>
+            </ul>
+        </div>
+
+        <div class="warning-section">
+            <h2>⚠️ Wichtige Hinweise</h2>
+            <ul>
+                <li><strong>Paper Trading:</strong> Teste zuerst mit Sandbox API</li>
+                <li><strong>API Limits:</strong> Nicht zu viele Requests gleichzeitig</li>
+                <li><strong>Credentials:</strong> Niemals API Keys in Git committen</li>
+                <li><strong>TP/SL Orders:</strong> Überprüfe Preise vor Platzierung</li>
+            </ul>
+        </div>
+
+        <div class="success-section">
+            <h2>✅ Erfolgreiches Setup</h2>
+            <p>Wenn alles funktioniert, siehst du:</p>
+            <ul>
+                <li>🔹 Account Assets (USDT-M)</li>
+                <li>📈 Open Positions mit aktuellen P&L</li>
+                <li>📊 Summary mit Total Equity</li>
+                <li>🎯 Möglichkeit für TP/SL Orders</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">
+                <span class="icon">🔄</span>
+                Deployment Workflow
+            </h2>
+            <div class="code-block">
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <pre># Lokal: Script zu Git hinzufügen
+cd C:\freeding\tbot052025
+git add r_analysis/spotassets_bitget.R
+git commit -m "Update Bitget analysis script"
+git push origin main
+
+# Server: Updates holen
+ssh trading@91.99.11.170 -p 2222
+cd ~/ada-trading
+git pull origin main</pre>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const testCodes = {
+            basic_test: `# Basic API Connection Test
+source("spotassets_bitget.R")
+
+# Test API credentials
+if (api_key != "" && api_secret != "" && passphrase != "") {
+    cat("✅ API credentials loaded\\n")
+} else {
+    cat("❌ API credentials missing\\n")
+}`,
+            assets_test: `# Test Assets Function
+source("spotassets_bitget.R")
+get_assets()`,
+            positions_test: `# Test Positions Function  
+source("spotassets_bitget.R")
+get_active_positions()`,
+            full_dashboard: `# Run Full Dashboard
+source("spotassets_bitget.R")
+main()`
+        };
+
+        function showCode(testType) {
+            const codeDiv = document.getElementById('test-code');
+            const contentPre = document.getElementById('test-content');
+            
+            contentPre.textContent = testCodes[testType];
+            codeDiv.style.display = 'block';
+            codeDiv.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyCode(button) {
+            const codeBlock = button.nextElementSibling;
+            const text = codeBlock.textContent;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                button.textContent = 'Copied!';
+                setTimeout(() => {
+                    button.textContent = 'Copy';
+                }, 2000);
+            });
+        }
+    </script>
+</body>
+</html>

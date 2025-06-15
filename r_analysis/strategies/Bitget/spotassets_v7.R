@@ -1,0 +1,84 @@
+# ============================================
+# KORREKTUR - RICHTIGE PFADE VERWENDEN
+# ============================================
+
+# 1. Clear workspace first
+rm(list = ls())
+
+# 2. Richtig Working Directory setzen (korrigierter Pfad!)
+setwd("C:/freeding/tbot202506/r_analysis")  # tbot052025 NICHT tbot202506!
+
+# Check if directory exists
+if (dir.exists(getwd())) {
+  cat(sprintf("✅ Working Directory: %s\n", getwd()))
+} else {
+  cat("❌ Directory does not exist!\n")
+  cat("Available directories:\n")
+  list.dirs("C:/freeding/", recursive = FALSE)
+}
+
+# 3. Check if spotassets_bitget.R exists
+script_path <- "spotassets_bitget.R"
+if (file.exists(script_path)) {
+  cat(sprintf("✅ Script found: %s\n", script_path))
+} else {
+  cat("❌ Script not found! Looking for files...\n")
+  cat("Files in current directory:\n")
+  print(list.files(pattern = "*.R"))
+}
+
+# 4. Set API credentials BEFORE loading script
+Sys.setenv(BITGET_API_KEY = "bg_d563d86a3169b96e58b54f675f9a6514")      # Ersetze mit echten Werten!
+Sys.setenv(BITGET_API_SECRET = "aa079302da6e88419bac856c3d3d0465b2c9db2a48e76fef59ecb40c780614e7")    # Ersetze mit echten Werten!
+Sys.setenv(BITGET_PASSPHRASE = "freeding") # Ersetze mit echten Werten!
+
+cat("🔑 Environment variables set\n")
+
+# 5. Load the script properly
+cat("\n📜 Loading spotassets_bitget.R...\n")
+tryCatch({
+  source("spotassets_bitget.R")
+  cat("✅ Script loaded successfully!\n")
+}, error = function(e) {
+  cat(sprintf("❌ Script loading failed: %s\n", e$message))
+  cat("\nTrying alternative paths...\n")
+  
+  # Try alternative locations
+  alt_paths <- c(
+    "strategies/spotassets_bitget.R",
+    "../spotassets_bitget.R",
+    "spotassets_bitget.R"
+  )
+  
+  for (path in alt_paths) {
+    if (file.exists(path)) {
+      cat(sprintf("Found at: %s\n", path))
+      source(path)
+      break
+    }
+  }
+})
+
+# 6. Verify functions are loaded
+cat("\n🔍 Function Check:\n")
+required_functions <- c("get_assets", "get_positions", "main")
+
+for (func in required_functions) {
+  if (exists(func)) {
+    cat(sprintf("✅ %s() loaded\n", func))
+  } else {
+    cat(sprintf("❌ %s() missing\n", func))
+  }
+}
+
+# 7. If everything loaded correctly, test
+if (exists("get_assets")) {
+  cat("\n🧪 Testing get_assets()...\n")
+  tryCatch({
+    get_assets()
+  }, error = function(e) {
+    cat(sprintf("❌ API call failed: %s\n", e$message))
+  })
+} else {
+  cat("\n❌ Script not properly loaded. Check file location!\n")
+}
