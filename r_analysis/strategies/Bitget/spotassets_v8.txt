@@ -1,5 +1,3 @@
-
-
 # Bitget API Client in R - Erweitert für Positionen
 library(httr)
 library(jsonlite)
