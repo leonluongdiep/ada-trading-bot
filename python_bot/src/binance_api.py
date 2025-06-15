@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 # .env Datei laden (API_KEY und API_SECRET)
-load_dotenv()
+load_dotenv('../../configs/.env')
 
 api_key = os.getenv("BINANCE_API_KEY")
 api_secret = os.getenv("BINANCE_API_SECRET")

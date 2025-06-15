@@ -1,4 +1,4 @@
-from trading.binance_api import get_account_balance
+from binance_api import get_account_balance
 
 portfolio = get_account_balance()
 
