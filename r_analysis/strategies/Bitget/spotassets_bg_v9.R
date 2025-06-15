@@ -195,10 +195,10 @@ main <- function() {
   df_pos <- get_positions()
 
   # Example: auto TP/SL for ADA if position exists
-  ada <- subset(df_pos, symbol=="ADAUSDT_UMCBL" & as.numeric(total)>0)
-  if (nrow(ada)) {
-    place_tp_sl(ada$symbol[1], ada$holdSide[1], ada$total[1], 0.9, 0.35)
-  }
+  # ada <- subset(df_pos, symbol=="ADAUSDT_UMCBL" & as.numeric(total)>0)
+  # if (nrow(ada)) {
+  #   place_tp_sl(ada$symbol[1], ada$holdSide[1], ada$total[1], 0.9, 0.35)
+  # }
 
   cat(sprintf("\nCompleted in %.2f sec\n", as.numeric(Sys.time()-start)))
 }
