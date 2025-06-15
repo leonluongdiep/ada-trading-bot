@@ -79,6 +79,9 @@ bitget_request <- function(path, method = "GET", params = NULL) {
 
   fromJSON(content(resp, "text"), flatten = TRUE)
 }
+
+
+
 # ==========================================
 # 🔧 SPOT PRICE FIX - DEBUG VERSION
 # ==========================================
@@ -254,3 +257,32 @@ calculate_portfolio_value_fixed <- function() {
   
   return(total_value)
 }
+
+
+
+# Debug Tests:
+get_ticker_price_debug("XRPUSDT")        # Debug einzelnen Ticker
+get_all_spot_tickers()                   # Alle Tickers anzeigen  
+find_xrp_price()                         # XRP Preis finden
+
+# Fixed Portfolio Calculator:
+calculate_portfolio_value_fixed()        # Korrigierte Portfolio-Bewertung
+
+
+
+
+# Backup: CoinGecko API für Preise
+get_price_coingecko <- function(coin_id) {
+  tryCatch({
+    url <- sprintf("https://api.coingecko.com/api/v3/simple/price?ids=%s&vs_currencies=usd", coin_id)
+    response <- httr::GET(url)
+    data <- fromJSON(content(response, "text"))
+    return(data[[coin_id]]$usd)
+  }, error = function(e) {
+    return(0)
+  })
+}
+
+# XRP Preis via CoinGecko
+xrp_price_backup <- get_price_coingecko("ripple")
+cat(sprintf("🔄 XRP Price (CoinGecko): %.6f USD\n", xrp_price_backup))

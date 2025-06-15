@@ -205,3 +205,10 @@ main <- function() {
 
 # Run if interactive
 if (interactive()) main()
+
+
+# Test der Preis-Formatierung
+test_formatting()
+
+# Mit Ihrer aktuellen ADA Position (2000 Kontrakte):
+place_tp_sl('ADAUSDT_UMCBL', 'long', '2000', 0.644202, 0.594167)
