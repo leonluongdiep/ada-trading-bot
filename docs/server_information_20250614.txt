@@ -1,0 +1,278 @@
+PS C:\freeding> ssh trading@91.99.11.170
+Welcome to Ubuntu 24.04.2 LTS (GNU/Linux 6.8.0-60-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/pro
+
+ System information as of Sat Jun 14 09:18:39 PM UTC 2025
+
+  System load:  0.0                Processes:             123
+  Usage of /:   11.4% of 37.23GB   Users logged in:       0
+  Memory usage: 9%                 IPv4 address for eth0: 91.99.11.170
+  Swap usage:   0%                 IPv6 address for eth0: 2a01:4f8:c013:d2e1::1
+
+ * Strictly confined Kubernetes makes edge and IoT secure. Learn how MicroK8s
+   just raised the bar for easy, resilient and secure K8s cluster deployment.
+
+   https://ubuntu.com/engage/secure-kubernetes-at-the-edge
+
+Expanded Security Maintenance for Applications is not enabled.
+
+0 updates can be applied immediately.
+
+Enable ESM Apps to receive additional future security updates.
+See https://ubuntu.com/esm or run: sudo pro status
+
+
+Last login: Wed Jun 11 17:52:12 2025 from 95.90.255.6
+trading@freedingserver1:~$ inxi -Fxz
+System:
+  Kernel: 6.8.0-60-generic arch: x86_64 bits: 64 compiler: gcc v: 13.3.0
+  Console: pty pts/0 Distro: Ubuntu 24.04.2 LTS (Noble Numbat)
+Machine:
+  Type: Kvm System: Hetzner product: vServer v: 20171111 serial: <superuser required>       
+  Mobo: KVM model: Standard PC (Q35 + ICH9, 2009) v: pc-q35-8.2 serial: <superuser required>
+    BIOS: Hetzner v: 20171111 date: 11/11/2017
+CPU:
+  Info: dual core model: Intel Xeon (Skylake IBRS no TSX) bits: 64 type: MCP arch: Skylake rev: 4
+    cache: L1: 128 KiB L2: 8 MiB L3: 16 MiB
+  Speed (MHz): avg: 2100 min/max: N/A cores: 1: 2100 2: 2100 bogomips: 8399
+  Flags: avx avx2 ht lm nx pae sse sse2 sse3 sse4_1 sse4_2 ssse3
+Graphics:
+  Device-1: Red Hat Virtio 1.0 GPU driver: virtio-pci v: 1 bus-ID: 00:01.0    
+  Display: server: No display server data found. Headless machine? tty: 187x26
+    resolution: 1280x800
+  API: EGL v: 1.5 drivers: swrast platforms: active: surfaceless,device       
+    inactive: gbm,wayland,x11,device-0
+  API: OpenGL v: 4.5 vendor: mesa v: 24.2.8-1ubuntu1~24.04.1 note: console (EGL sourced)
+    renderer: llvmpipe (LLVM 19.1.1 256 bits)
+Audio:
+  Message: No device data found.
+  API: ALSA v: k6.8.0-60-generic status: inactive
+Network:
+  Device-1: Red Hat Virtio 1.0 network driver: virtio-pci v: 1 port: N/A bus-ID: 01:00.0
+  IF-ID-1: eth0 state: up speed: -1 duplex: unknown mac: <filter>
+Drives:
+  Local Storage: total: 38.15 GiB used: 4.26 GiB (11.2%)
+  ID-1: /dev/sda vendor: QEMU model: HARDDISK size: 38.15 GiB
+Partition:
+  ID-1: / size: 37.23 GiB used: 4.25 GiB (11.4%) fs: ext4 dev: /dev/sda1
+  ID-2: /boot/efi size: 252 MiB used: 6.1 MiB (2.4%) fs: vfat dev: /dev/sda15
+Swap:
+  Alert: No swap data was found.
+Sensors:
+  Src: lm-sensors+/sys Message: No sensor data found using /sys/class/hwmon or lm-sensors.
+Info:
+  Memory: total: 4 GiB available: 3.73 GiB used: 519.4 MiB (13.6%)
+  Processes: 119 Uptime: 5d 1h 58m Init: systemd target: graphical (5)
+  Packages: 920 Compilers: gcc: 13.3.0 Shell: Bash v: 5.2.21 inxi: 3.3.34
+trading@freedingserver1:~$   neofetch
+Command 'neofetch' not found, but can be installed with:
+sudo apt install neofetch
+trading@freedingserver1:~$ neofetch
+Command 'neofetch' not found, but can be installed with:
+sudo apt install neofetch
+trading@freedingserver1:~$ free -h
+               total        used        free      shared  buff/cache   available
+Mem:           3.7Gi       478Mi       1.1Gi       4.7Mi       2.5Gi       3.3Gi
+Swap:             0B          0B          0B
+trading@freedingserver1:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+tmpfs           382M  844K  382M   1% /run
+/dev/sda1        38G  4.3G   32G  12% /
+tmpfs           1.9G     0  1.9G   0% /dev/shm
+tmpfs           5.0M     0  5.0M   0% /run/lock
+/dev/sda15      253M  6.2M  246M   3% /boot/efi
+top - 21:28:57 up 5 days,  2:03,  1 user,  load average: 0.00, 0.00, 0.00
+Tasks: 117 total,   1 running, 116 sleeping,   0 stopped,   0 zombie
+%Cpu(s):  0.0 us,  0.2 sy,  0.0 ni, 99.8 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st
+MiB Mem :   3820.0 total,   1136.9 free,    472.6 used,   2510.0 buff/cache
+MiB Swap:      0.0 total,      0.0 free,      0.0 used.   3347.4 avail Mem
+
+    PID USER      PR  NI    VIRT    RES    SHR S  %CPU  %MEM     TIME+ COMMAND                                                                                                             
+  58886 root      20   0   80712   4096   3840 S   0.3   0.1   6:32.47 qemu-ga
+  94272 root      20   0       0      0      0 I   0.3   0.0   0:00.90 kworker/u4:1-events_power_efficient
+  95822 trading   20   0   11904   5888   3712 R   0.3   0.2   0:00.24 top                                                                                                                 
+      1 root      20   0   22448  13952   9728 S   0.0   0.4   0:50.40 systemd
+      2 root      20   0       0      0      0 S   0.0   0.0   0:00.14 kthreadd
+      3 root      20   0       0      0      0 S   0.0   0.0   0:00.00 pool_workqueue_release
+      4 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_g
+      5 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-rcu_p
+      6 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-slub_
+      7 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-netns
+     12 root       0 -20       0      0      0 I   0.0   0.0   0:00.00 kworker/R-mm_pe
+     13 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_kthread
+     14 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_rude_kthread
+     15 root      20   0       0      0      0 I   0.0   0.0   0:00.00 rcu_tasks_trace_kthread
+     16 root      20   0       0      0      0 S   0.0   0.0   0:01.37 ksoftirqd/0
+     17 root      20   0       0      0      0 I   0.0   0.0   0:25.91 rcu_preempt
+     18 root      rt   0       0      0      0 S   0.0   0.0   0:03.88 migration/0
+     19 root     -51   0       0      0      0 S   0.0   0.0   0:00.00 idle_inject/0
+     20 root      20   0       0      0      0 S   0.0   0.0   0:00.00 cpuhp/0
+trading@freedingserver1:~$ ps aux --sort=-%mem | head -n 10
+USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root       55082  0.0  1.6 116020 64668 ?        S<s  Jun11   1:00 /usr/lib/systemd/systemd-journald
+root       58871  0.0  0.6 223584 27008 ?        SLsl Jun11   0:55 /sbin/multipathd -d -s
+root         819  0.0  0.5 109680 23168 ?        Ssl  Jun09   0:00 /usr/bin/python3 /usr/share/unattended-upgrades/unattended-upgrade-shutdown --wait-for-signal
+root           1  0.0  0.3  22448 13952 ?        Ss   Jun09   0:50 /usr/lib/systemd/systemd --system --deserialize=102
+systemd+   55269  0.0  0.3  21584 13056 ?        Ss   Jun11   0:00 /usr/lib/systemd/systemd-resolved
+trading    95548  0.0  0.2  20052 11264 ?        Ss   21:18   0:00 /usr/lib/systemd/systemd --user
+root       95542  0.0  0.2  14736 10496 ?        Ss   21:18   0:00 sshd: trading [priv]
+systemd+   55076  0.0  0.2  18988  9600 ?        Ss   Jun11   0:00 /usr/lib/systemd/systemd-networkd
+root         762  0.0  0.2  18136  8832 ?        Ss   Jun09   0:02 /usr/lib/systemd/systemd-logind
+trading@freedingserver1:~$ journalctl -xe
+Hint: You are currently not seeing messages from other users and the system.
+      Users in groups 'adm', 'systemd-journal' can see all messages.
+      Pass -q to turn off this notice.
+░░ Subject: A start job for unit UNIT has finished successfully
+░░ Defined-By: systemd
+░░ Support: http://www.ubuntu.com/support
+░░
+░░ A start job for unit UNIT has finished successfully.
+░░
+░░ The job identifier is 1.
+Jun 14 21:18:39 freedingserver1 systemd[95548]: Startup finished in 271ms.
+░░ Subject: User manager start-up is now complete
+░░ Defined-By: systemd
+░░ Support: http://www.ubuntu.com/support
+░░
+░░ The user manager instance for user 1000 has been started. All services queued
+░░ for starting have been started. Note that other services might still be starting
+░░ up or be started at any later time.
+░░
+░░ Startup of the manager took 271128 microseconds.
+Jun 14 21:24:25 freedingserver1 systemd[95548]: launchpadlib-cache-clean.service - Clean up old files in the Launchpadlib cache was skipped because of an unmet condition check (Condition>░░ Subject: A start job for unit UNIT has finished successfully
+░░ Defined-By: systemd
+░░ Support: http://www.ubuntu.com/support
+░░
+░░ A start job for unit UNIT has finished successfully.
+░░
+░░ The job identifier is 19.
+trading@freedingserver1:~$ cat /etc/ssh/sshd_config | grep -i "PermitRootLogin"
+#PermitRootLogin prohibit-password
+# the setting of "PermitRootLogin prohibit-password".
+trading@freedingserver1:~$ systemctl list-units --type=service
+  UNIT                                                  LOAD   ACTIVE SUB     DESCRIPTION
+  apparmor.service                                      loaded active exited  Load AppArmor profiles
+  apport.service                                        loaded active exited  automatic crash report generation
+  atd.service                                           loaded active running Deferred execution scheduler
+  blk-availability.service                              loaded active exited  Availability of block devices
+  cloud-config.service                                  loaded active exited  Cloud-init: Config Stage
+  cloud-final.service                                   loaded active exited  Cloud-init: Final Stage
+  cloud-init-local.service                              loaded active exited  Cloud-init: Local Stage (pre-network)
+  cloud-init.service                                    loaded active exited  Cloud-init: Network Stage
+  console-setup.service                                 loaded active exited  Set console font and keymap
+  cron.service                                          loaded active running Regular background program processing daemon
+  dbus.service                                          loaded active running D-Bus System Message Bus
+  finalrd.service                                       loaded active exited  Create final runtime dir for shutdown pivot root
+  getty@tty1.service                                    loaded active running Getty on tty1
+  keyboard-setup.service                                loaded active exited  Set the console keyboard layout
+  kmod-static-nodes.service                             loaded active exited  Create List of Static Device Nodes
+  lm-sensors.service                                    loaded active exited  Initialize hardware monitoring sensors
+  lvm2-monitor.service                                  loaded active exited  Monitoring of LVM2 mirrors, snapshots etc. using dmeventd or progress polling
+  multipathd.service                                    loaded active running Device-Mapper Multipath Device Controller
+  plymouth-quit-wait.service                            loaded active exited  Hold until boot process finishes up
+  plymouth-quit.service                                 loaded active exited  Terminate Plymouth Boot Screen
+  plymouth-read-write.service                           loaded active exited  Tell Plymouth To Write Out Runtime Data
+  polkit.service                                        loaded active running Authorization Manager
+  qemu-guest-agent.service                              loaded active running QEMU Guest Agent
+  rsyslog.service                                       loaded active running System Logging Service
+trading@freedingserver1:~$ dpkg -l | grep python
+ii  libpython3-dev:amd64            3.12.3-0ubuntu2                         amd64        header files and a static library for Python (default)
+ii  libpython3-stdlib:amd64         3.12.3-0ubuntu2                         amd64        interactive high-level object-oriented language (default python3 version)
+ii  libpython3.12-dev:amd64         3.12.3-1ubuntu0.5                       amd64        Header files and a static library for Python (v3.12)
+ii  libpython3.12-minimal:amd64     3.12.3-1ubuntu0.5                       amd64        Minimal subset of the Python language (version 3.12)
+ii  libpython3.12-stdlib:amd64      3.12.3-1ubuntu0.5                       amd64        Interactive high-level object-oriented language (standard library, version 3.12)
+ii  libpython3.12t64:amd64          3.12.3-1ubuntu0.5                       amd64        Shared Python runtime library (version 3.12)
+ii  python-apt-common               2.7.7ubuntu4                            all          Python interface to libapt-pkg (locales)
+ii  python-babel-localedata         2.10.3-3build1                          all          tools for internationalizing Python applications - locale data files
+ii  python3                         3.12.3-0ubuntu2                         amd64        interactive high-level object-oriented language (default python3 version)
+ii  python3-apport                  2.28.1-0ubuntu3.7                       all          Python 3 library for Apport crash report handling
+ii  python3-apt                     2.7.7ubuntu4                            amd64        Python 3 interface to libapt-pkg
+ii  python3-attr                    23.2.0-2                                all          Attributes without boilerplate (Python 3)
+ii  python3-automat                 22.10.0-2                               all          Self-service finite-state machines for the programmer on the go
+ii  python3-babel                   2.10.3-3build1                          all          tools for internationalizing Python applications - Python 3.x
+ii  python3-bcrypt                  3.2.2-1build1                           amd64        password hashing library for Python 3
+ii  python3-blinker                 1.7.0-1                                 all          Fast, simple object-to-object and broadcast signaling (Python3)
+ii  python3-boto3                   1.34.46+dfsg-1ubuntu1                   all          Python interface to Amazon's Web Services - Python 3.x
+ii  python3-botocore                1.34.46+repack-1ubuntu1                 all          Low-level, data-driven core of boto 3 (Python 3)
+ii  python3-certifi                 2023.11.17-1                            all          root certificates for validating SSL certs and verifying TLS hosts (python3)
+ii  python3-cffi-backend:amd64      1.16.0-2build1                          amd64        Foreign Function Interface for Python 3 calling C code - runtime
+ii  python3-chardet                 5.2.0+dfsg-1                            all          Universal Character Encoding Detector (Python3)
+ii  python3-click                   8.1.6-2                                 all          Wrapper around optparse for command line utilities - Python 3.x
+ii  python3-colorama                0.4.6-4                                 all          Cross-platform colored terminal text in Python - Python 3.x
+ii  python3-commandnotfound         23.04.0                                 all          Python 3 bindings for command-not-found.
+ii  python3-configobj               5.0.8-3                                 all          simple but powerful config file reader and writer for Python 3
+ii  python3-constantly              23.10.4-1                               all          Symbolic constants in Python
+ii  python3-cryptography            41.0.7-4ubuntu0.1                       amd64        Python library exposing cryptographic recipes and primitives (Python 3)
+ii  python3-dateutil                2.8.2-3ubuntu1                          all          powerful extensions to the standard Python 3 datetime module
+ii  python3-dbus                    1.3.2-5build3                           amd64        simple interprocess messaging system (Python 3 interface)
+ii  python3-debconf                 1.5.86ubuntu1                           all          interact with debconf from Python 3
+ii  python3-debian                  0.1.49ubuntu2                           all          Python 3 modules to work with Debian-related data formats
+ii  python3-dev                     3.12.3-0ubuntu2                         amd64        header files and a static library for Python (default)
+ii  python3-distro                  1.9.0-1                                 all          Linux OS platform information API
+ii  python3-distro-info             1.7build1                               all          information about distributions' releases (Python 3 module)
+ii  python3-distupgrade             1:24.04.26                              all          manage release upgrades
+ii  python3-gdbm:amd64              3.12.3-0ubuntu1                         amd64        GNU dbm database support for Python 3.x
+ii  python3-gi                      3.48.2-1                                amd64        Python 3 bindings for gobject-introspection libraries
+ii  python3-hamcrest                2.1.0-1                                 all          Hamcrest framework for matcher objects (Python 3)
+ii  python3-httplib2                0.20.4-3                                all          comprehensive HTTP client library written for Python3
+ii  python3-hyperlink               21.0.0-5                                all          Immutable, Pythonic, correct URLs.
+ii  python3-idna                    3.6-2ubuntu0.1                          all          Python IDNA2008 (RFC 5891) handling (Python 3)
+ii  python3-incremental             22.10.0-1                               all          Library for versioning Python projects
+ii  python3-jinja2                  3.1.2-1ubuntu1.3                        all          small but fast and easy to use stand-alone template engine
+ii  python3-jmespath                1.0.1-1                                 all          JSON Matching Expressions (Python 3)
+ii  python3-json-pointer            2.0-0ubuntu1                            all          resolve JSON pointers - Python 3.x
+ii  python3-jsonpatch               1.32-3                                  all          library to apply JSON patches - Python 3.x
+ii  python3-jsonschema              4.10.3-2ubuntu1                         all          An(other) implementation of JSON Schema (Draft 3, 4, 6, 7)
+ii  python3-jwt                     2.7.0-1                                 all          Python 3 implementation of JSON Web Token
+ii  python3-launchpadlib            1.11.0-6                                all          Launchpad web services client library (Python 3)
+ii  python3-lazr.restfulclient      0.14.6-1                                all          client for lazr.restful-based web services (Python 3)
+ii  python3-lazr.uri                1.0.6-3                                 all          library for parsing, manipulating, and generating URIs
+ii  python3-magic                   2:0.4.27-3                              all          python3 interface to the libmagic file type identification library
+ii  python3-markdown-it             3.0.0-2                                 all          Python port of markdown-it and some its associated plugins
+ii  python3-markupsafe              2.1.5-1build2                           amd64        HTML/XHTML/XML string library
+ii  python3-mdurl                   0.1.2-1                                 all          Python port of the JavaScript mdurl package
+ii  python3-minimal                 3.12.3-0ubuntu2                         amd64        minimal subset of the Python language (default python3 version)
+ii  python3-netifaces:amd64         0.11.0-2build3                          amd64        portable network interface information - Python 3.x
+ii  python3-netplan                 1.1.2-2~ubuntu24.04.1                   amd64        Declarative network configuration Python bindings
+ii  python3-newt:amd64              0.52.24-2ubuntu2                        amd64        NEWT module for Python3
+ii  python3-oauthlib                3.2.2-1                                 all          generic, spec-compliant implementation of OAuth for Python3
+ii  python3-openssl                 23.2.0-1                                all          Python 3 wrapper around the OpenSSL library
+ii  python3-packaging               24.0-1                                  all          core utilities for python3 packages
+ii  python3-pexpect                 4.9-2                                   all          Python 3 module for automating interactive applications
+ii  python3-pip                     24.0+dfsg-1ubuntu1.1                    all          Python package installer
+ii  python3-pip-whl                 24.0+dfsg-1ubuntu1.1                    all          Python package installer (pip wheel)
+ii  python3-pkg-resources           68.1.2-2ubuntu1.2                       all          Package Discovery and Resource Access using pkg_resources
+ii  python3-problem-report          2.28.1-0ubuntu3.7                       all          Python 3 library to handle problem reports
+ii  python3-ptyprocess              0.7.0-5                                 all          Run a subprocess in a pseudo terminal from Python 3
+ii  python3-pyasn1                  0.4.8-4                                 all          ASN.1 library for Python (Python 3 module)
+ii  python3-pyasn1-modules          0.2.8-1                                 all          Collection of protocols modules written in ASN.1 language (Python 3)
+ii  python3-pygments                2.17.2+dfsg-1                           all          syntax highlighting package written in Python 3
+ii  python3-pyparsing               3.1.1-1                                 all          alternative to creating and executing simple grammars - Python 3.x
+ii  python3-pyrsistent:amd64        0.20.0-1build2                          amd64        persistent/functional/immutable data structures for Python
+ii  python3-requests                2.31.0+dfsg-1ubuntu1                    all          elegant and simple HTTP library for Python3, built for human beings
+ii  python3-rich                    13.7.1-1                                all          render rich text, tables, progress bars, syntax highlighting, markdown and more
+ii  python3-s3transfer              0.10.1-1ubuntu2                         all          Amazon S3 Transfer Manager for Python3
+ii  python3-serial                  3.5-2                                   all          pyserial - module encapsulating access for the serial port
+ii  python3-service-identity        24.1.0-1                                all          Service identity verification for pyOpenSSL (Python 3 module)
+ii  python3-setuptools              68.1.2-2ubuntu1.2                       all          Python3 Distutils Enhancements
+ii  python3-setuptools-whl          68.1.2-2ubuntu1.2                       all          Python Distutils Enhancements (wheel package)
+ii  python3-six                     1.16.0-4                                all          Python 2 and 3 compatibility library
+ii  python3-software-properties     0.99.49.2                               all          manage the repositories that you install software from
+ii  python3-systemd                 235-1build4                             amd64        Python 3 bindings for systemd
+ii  python3-twisted                 24.3.0-1ubuntu0.1                       all          Event-based framework for internet applications
+ii  python3-tz                      2024.1-2                                all          Python3 version of the Olson timezone database
+ii  python3-update-manager          1:24.04.12                              all          Python 3.x module for update-manager
+ii  python3-urllib3                 2.0.7-1ubuntu0.1                        all          HTTP library with thread-safe connection pooling for Python3
+ii  python3-venv                    3.12.3-0ubuntu2                         amd64        venv module for python3 (default python3 version)
+ii  python3-wadllib                 1.3.6-5                                 all          Python 3 library for navigating WADL files
+ii  python3-wheel                   0.42.0-2                                all          built-package format for Python
+ii  python3-xkit                    0.5.0ubuntu6                            all          library for the manipulation of xorg.conf files (Python 3)
+ii  python3-yaml                    6.0.1-2build2                           amd64        YAML parser and emitter for Python3
+ii  python3-zope.interface          6.1-1build1                             amd64        Interfaces for Python3
+ii  python3.12                      3.12.3-1ubuntu0.5                       amd64        Interactive high-level object-oriented language (version 3.12)
+ii  python3.12-dev                  3.12.3-1ubuntu0.5                       amd64        Header files and a static library for Python (v3.12)
+ii  python3.12-minimal              3.12.3-1ubuntu0.5                       amd64        Minimal subset of the Python language (version 3.12)
+ii  python3.12-venv                 3.12.3-1ubuntu0.5                       amd64        Interactive high-level object-oriented language (pyvenv binary, version 3.12)
