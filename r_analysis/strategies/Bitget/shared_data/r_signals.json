@@ -1,0 +1,11 @@
+{
+  "signal": "SELL",
+  "confidence": 20,
+  "strength": -1,
+  "reasons": [
+    "Bearish MA Cross",
+    "MACD Bearish",
+    "BB Oversold"
+  ],
+  "timestamp": "2025-06-20T19:38:39.268124"
+}

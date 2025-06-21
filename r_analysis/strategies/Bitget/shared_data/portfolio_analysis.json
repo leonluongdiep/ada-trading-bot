@@ -1,0 +1,61 @@
+{
+  "timestamp": "2025-06-20T19:38:39.268124",
+  "portfolio_health": {
+    "equity": 830.75813102,
+    "available": 1079.66516437,
+    "locked": 0.0,
+    "unrealized_pnl": -248.90703335,
+    "equity_utilization": 0.0,
+    "pnl_percentage": -29.96143210110907,
+    "health_score": 75,
+    "risk_factors": [
+      "Significant losses"
+    ]
+  },
+  "position_analysis": [
+    {
+      "symbol": "ADAUSDT_UMCBL",
+      "side": "long",
+      "size": 5000.0,
+      "avg_price": 0.61258140667,
+      "current_price": 0.49970672624109486,
+      "unrealized_pnl": -248.90703335,
+      "roe_pct": -81.2649651588551,
+      "leverage": 10.0,
+      "margin": 306.290703335,
+      "risk_level": "HIGH",
+      "distance_to_liquidation": 100.0,
+      "position_value": 2498.533631205474
+    }
+  ],
+  "technical_indicators": {
+    "current_price": 0.49970672624109486,
+    "sma_20": 0.5239452406678726,
+    "sma_50": 0.5249429765400002,
+    "rsi_14": 42.69652861962549,
+    "ema_12": 0.518200742183512,
+    "ema_26": 0.523692636591511,
+    "macd": -0.005491894407999021,
+    "bb_upper": 0.5436351146988377,
+    "bb_lower": 0.5042553666369075,
+    "volatility": 0.23843434386841372
+  },
+  "signals": {
+    "signal": "SELL",
+    "confidence": 20,
+    "strength": -1,
+    "reasons": [
+      "Bearish MA Cross",
+      "MACD Bearish",
+      "BB Oversold"
+    ],
+    "timestamp": "2025-06-20T19:38:39.268124"
+  },
+  "recommendations": [
+    "\ud83d\udcc9 Consider stop-loss strategy to limit losses",
+    "\ud83d\udd34 ADAUSDT_UMCBL position at HIGH risk - consider partial close",
+    "\ud83d\udcca Monitor RSI for entry/exit points",
+    "\ud83c\udfaf Set stop-loss orders for risk management",
+    "\ud83d\udcc8 Consider DCA strategy for volatile periods"
+  ]
+}
