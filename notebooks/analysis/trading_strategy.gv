@@ -1,0 +1,16 @@
+// Trading Strategy
+digraph {
+	A [label="EMA 50 > EMA 200
+(Trend)"]
+	B [label="RSI > 50
+(Momentum)"]
+	C [label="SMA > Preis
+(Filter)"]
+	D [label="AND
+Alle Bedingungen"]
+	E [label="BUY BTC/USDT"]
+	A -> D
+	B -> D
+	C -> D
+	D -> E
+}
