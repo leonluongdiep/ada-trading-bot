@@ -60,3 +60,4 @@ logs/
 *.temp
 historical_data/
 bitget_data/
+reports/
