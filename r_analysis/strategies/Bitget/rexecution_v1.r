@@ -14,6 +14,12 @@ cat("🚀 Starting OPTIMIZED SILENT Trading System Execution...\n")
 # 📝 CONSOLE OUTPUT MANAGEMENT
 # ==========================================================================================================
 
+
+# CONSOLE FIX
+if (!exists("end_silent_mode")) {
+  end_silent_mode <- function() { sink(type = "message"); sink(type = "output"); cat("✅ Analysis complete!\n") }
+}
+
 # Lade Console Management System
 source("c:/freeding/tbot202506/r_analysis/r_console_output_manager.r")
 
@@ -26,11 +32,11 @@ start_silent_mode("file")
 
 # 1. Clean Console (wie in Ihrem Log erfolgreich)
 tryCatch({
-  source("c:/freeding/tbot202506/r_analysis/clean_console.R")
+  source("c:/freeding/tbot202506/r_analysis/clean_console_v1.R")
 }, error = function(e) cat("⚠️ Clean console skipped\n"))
 
 # 2. Basis Trading System (wie in Ihrem Log erfolgreich)
-source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/complete_trading_analysis_v3.r")
+source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/complete_trading_analysis_v5.r")
 
 # 3. Enhanced System mit Fixes (wie in Ihrem Log erfolgreich)
 source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/bitget_system_fixes.r")
@@ -245,6 +251,18 @@ cat(sprintf("📊 Assets Analyzed: %d/%d successful\n", successful_assets, lengt
 analysis_end_time <- Sys.time()
 cat(sprintf("⏱️ Execution Status: Analysis phase complete\n"))
 
+
+# ==========================================================================================================
+# 🔄 ADA ANALYSIS
+# ==========================================================================================================
+
+# Ihre profitable ADA Position analysieren:
+ada_analysis <- analyze_ada_position_optimized()
+
+# Enhanced Analysis:
+analysis <- complete_trading_analysis('ADAUSDT_UMCBL')
+
+
 # ==========================================================================================================
 # 🔄 RESTORE CONSOLE & FINAL SUMMARY
 # ==========================================================================================================
@@ -280,4 +298,68 @@ cat("📋 Use: View(execution_results) for detailed analysis\n")
 # ==========================================================================================================
 # 🎯 END OF OPTIMIZED EXECUTION
 # ==========================================================================================================
+
+
+
+
+# Eine dieser Varianten sollte funktionieren:
+
+
+#complete_trading_analysis(ADAUSDT_UMCBL)  
+
+#get_enhanced_orderbook(ADAUSDT_UMCBL)   
+
+
+# ==========================================================================================================
+# Funktions-Index – Bitget-Toolkit     (Stand: 30 Jun 2025, v3 + Collector v6)
+# ==========================================================================================================
+
+# Unterstützte Symbole -----------------------------------------------------------
+# "ADAUSDT_UMCBL", "BTCUSDT_UMCBL", "ETHUSDT_UMCBL"
+
+
+# Analyse & Marktdaten -------------------------------------------------------
+# complete_trading_analysis(symbol)            # 100-Kerzen-Analyse, Technik, Gesamt-Signal
+# complete_trading_analysis_enhanced(symbol)   # Analyse + realistischer 24 h-Change & 5-Faktor-Sentiment
+# get_enhanced_market_data(symbol)             # Ticker, Orderbook, Trades, Funding, Sentiment (Liste)
+# get_enhanced_ticker_data(symbol)             # Nur Preis, 24 h-Range, Funding
+# get_enhanced_orderbook(symbol)               # Spread- & Liquidity-Snapshot
+# get_enhanced_trades(symbol)                  # Letzte Trades, Buy/Sell-Quote
+# calculate_market_sentiment(symbol)           # 5-Faktor-Score (price, volume, orderbook, trades, funding)
+
+# Position & Orders ----------------------------------------------------------
+# get_current_positions(symbol)                # Aktive Futures-Positionen inkl. PnL & Margin
+# get_current_plan_orders(symbol)              # Offene TP/SL-Plan-Orders
+# get_symbol_precision(symbol)                 # Tick-Size, Qty-Step, Notional-Grenzen
+
+# TP/SL & Presets (LIVE-Orders!) ------------------------------------------------
+# place_intelligent_tp_sl(symbol, analysis)    # TP/SL nach letzter Analyse      *real money*
+# quick_tp_sl(symbol)                          # Auto-Setup (gestafftes TP, SL)
+# place_tp_simple(symbol, side, qty, price)    # Einfache TP-Limit-Order
+# place_sl_simple(symbol, side, qty, price)    # Einfache SL-Order
+# place_breakeven_orders(symbol, side, qty, trg)# SL auf Einstand nach Trigger
+# place_conservative_strategy(symbol, side, qty, trg) # Enges SL, gestafftes TP
+# place_tp_sl_universal()                      # Wählt Symbol aus aktiver Position
+
+# Datensammlung -----------------------------------------------------------------
+# quick_collection(symbol, timeframe, n)       # Live-Daten + n synthetische Kerzen
+# complete_data_collection(symbol)             # 200 Kerzen für 5m-4h + Live-Feeds, Speichert CSV/JSON
+# collect_live_market_data(symbol)             # Nur Live-Ticker/OB/Trades/Sentiment
+# quick_collection_universal()                 # Läuft für alle unterstützten Symbole
+
+# Exploration & Reports ----------------------------------------------------------
+# complete_data_exploration(symbol)            # Voller TXT/PDF-Report (Stats, Sentiment-Chronik)
+# quick_exploration(symbol)                    # Einzeiler-Dashboard
+# load_all_bitget_data(symbol)                 # Lädt gespeicherte CSV/JSON-Dumps
+
+# Komfort-Alias ------------------------------------------------------------------
+# analysis_btc() / analysis_eth()              # Schnelle BTC- bzw. ETH-Analyse
+
+# Utility ------------------------------------------------------------------------
+# end_silent_mode()                            # Beendet Log-Umleitung (kosmetisch)
+
+# Unterstützte Symbole -----------------------------------------------------------
+# "ADAUSDT_UMCBL", "BTCUSDT_UMCBL", "ETHUSDT_UMCBL"
+# ==========================================================================================================
+
 
