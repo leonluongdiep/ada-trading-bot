@@ -28,12 +28,6 @@ source("c:/freeding/tbot202506/r_analysis/r_console_output_manager.r")
 start_silent_mode("file")
 
 
-# Lade Console Management System
-source("c:/freeding/tbot202506/r_analysis/r_console_output_manager.r")
-
-# Starte Silent Mode mit automatischem Log
-start_silent_mode("file")
-
 # ==========================================================================================================
 # 🔧 CORE SYSTEM LOADING (FIXED - MIT TP/SL SUPPORT)
 # ==========================================================================================================
@@ -58,6 +52,10 @@ cat("✅ Core systems loaded successfully\n")
 # ==========================================================================================================
 # 🆕 STRATEGIC ORDER FUNCTIONS - NEUE FUNKTIONALITÄT
 # ==========================================================================================================
+
+#source("c:/freeding/tbot202506/r_analysis\strategies\Bitget\strategic_trading_execution.r")
+
+
 
 # ┌─────────────────────────────────────────────────────────────────────────────────────────────────────┐
 # │ STRATEGIC LIMIT ORDER - Platziert Buy/Sell Limit Orders für strategische Einstiege                 │
@@ -242,7 +240,7 @@ cat("=============================================\n")
 ADA_SYMBOL <- "ADAUSDT_UMCBL"
 
 # TP Konfiguration (angepasst an 1000 Kontrakte Position)
-TP_PRICE <- 0.6200        # Konservatives TP (+3% from current)
+TP_PRICE <- 0.5938        # Konservatives TP (+3% from current)
 TP_SIZE <- 500            # 50% der Position
 
 # SL Konfiguration  
@@ -704,4 +702,3 @@ cat(sprintf("   Strategy: Wait for dip to %.4f USDT\n", STRATEGIC_PRICE))
 # ==========================================================================================================
 # 🎯 END OF ENHANCED EXECUTION WITH STRATEGIC ORDERS
 # ==========================================================================================================
-
