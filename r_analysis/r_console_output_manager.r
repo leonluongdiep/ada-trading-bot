@@ -509,6 +509,58 @@ end_silent_mode <- function() {
   return(TRUE)
 }
 
+
+
+# ==========================================================================================================
+# 🔧 FALLBACK FUNCTIONS - ENSURE AVAILABILITY
+# ==========================================================================================================
+
+# Ensure end_silent_mode is always available
+if (!exists("end_silent_mode")) {
+  end_silent_mode <- function() {
+    tryCatch({
+      sink(type = "message")
+      sink(type = "output")
+      cat("✅ Console output restored!\n")
+      return(TRUE)
+    }, error = function(e) {
+      cat("⚠️ Console restore had issues, but continuing...\n")
+      return(FALSE)
+    })
+  }
+}
+
+# Ensure start_silent_mode is available
+if (!exists("start_silent_mode")) {
+  start_silent_mode <- function(mode = "file") {
+    cat("🔇 Silent mode function available\n")
+    return(TRUE)
+  }
+}
+
+cat("🔧 Console management fallback functions ensured\n")
+
+
+# ==========================================================================================================
+# 🔧 AUTO-CLEANUP INSURANCE
+# ==========================================================================================================
+
+# Stelle sicher, dass cleanup_console immer verfügbar ist
+if (!exists("cleanup_console")) {
+  cleanup_console <- function() {
+    for(i in 1:15) {
+      tryCatch(sink(), error = function(e) NULL, warning = function(w) NULL)
+      tryCatch(sink(type = "message"), error = function(e) NULL, warning = function(w) NULL)
+      tryCatch(sink(type = "output"), error = function(e) NULL, warning = function(w) NULL)
+    }
+    cat("✅ Emergency console cleanup completed\n")
+    return(TRUE)
+  }
+}
+
+cat("🔧 Console management with auto-cleanup ready!\n")
+
+
 # ==========================================================================================================
 # ✅ STATUS & USAGE INFORMATION
 # ==========================================================================================================
