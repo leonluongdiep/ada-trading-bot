@@ -17,3 +17,31 @@ source("c:/freeding/tbot202506/r_analysis/comprehensive_trading_test.r")
 #place_strategic_limit_order('ADAUSDT_UMCBL', 'long', '5000', 0.5000)
 #get_current_open_orders('ADAUSDT_UMCBL')
 
+
+
+
+# SOFORTIGE CONSOLE WIEDERHERSTELLUNG
+sink(type = "message")
+sink(type = "output")
+cat("✅ Console wiederhergestellt!\n")
+
+version
+# NOTFALL CONSOLE RESET
+tryCatch({
+  sink(type = "message")
+  sink(type = "output") 
+  sink()  # Reset all sinks
+}, error = function(e) {
+  cat("Versuche Notfall-Reset...\n")
+})
+sink()  # Zusätzlicher Reset
+cat("✅ Console sollte jetzt funktionieren!\n")
+
+
+
+# KOMPLETTER SINK RESET
+for(i in 1:10) {
+  tryCatch(sink(), error = function(e) NULL)
+  tryCatch(sink(type = "message"), error = function(e) NULL)
+}
+cat("🔧 Kompletter Reset durchgeführt!\n")

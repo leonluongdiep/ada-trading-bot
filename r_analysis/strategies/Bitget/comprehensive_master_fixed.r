@@ -827,6 +827,11 @@ cat("ada_master_analysis_fixed <- execute_master_analysis_fixed('ADAUSDT_UMCBL')
 cat("\n# 2. SINGLE ASSET ANALYSIS (FIXED):\n")
 cat("btc_analysis_fixed <- execute_master_analysis_fixed('BTCUSDT_UMCBL', include_multi_asset = FALSE)\n")
 
+
+
+
+ada_master_analysis_fixed <- execute_master_analysis_fixed('ADAUSDT_UMCBL')
+
 cat("\n# 3. QUICK ANALYSIS WITHOUT SAVING (FIXED):\n")
 cat("quick_analysis_fixed <- execute_master_analysis_fixed('ADAUSDT_UMCBL', save_results = FALSE)\n")
 
