@@ -1,0 +1,99 @@
+Vorschlag – Stat-Arbitrage-Algorithmus (ADA ↔ BTC, Bitget) in R
+(Elemente und Methodik inspiriert u. a. von Ernie Chan, “Quantitative Trading”, Kap. 4 – Statistical Arbitrage)
+Hinweis: Dies ist ein Ausgangs-/Diskussions­vorschlag.
+Wenn derdie Umsetzerin über aktuellere oder professionellere Verfahren, Bibliotheken oder Modell­varianten verfügt, bitte unbedingt vorschlagen und begründen – Continuous-Improvement erwünscht!
+
+1 Datenbeschaffung
+ccxt-R-Binding installieren
+
+r
+Kopieren
+Bearbeiten
+remotes::install_github("ccxt/ccxt", subdir = "R")
+6 Monate 1-Stunden-OHLCV für ADA/USDT & BTC/USDT von Bitget laden.
+
+Rohdaten als RDS cachen (~/shared_data/bitget_{symbol}_{tf}.rds).
+
+In xts (POSIXct UTC) konvertieren.
+
+2 Cointegration-Test
+Engle–Granger ADF (tseries::adf.test) auf OLS-Residuen (ADA ~ BTC).
+
+p > 0,05 ⇒ Abbruch mit Meldung „Keine Cointegration – Handel gestoppt“.
+
+3 Spread & Handelssignal
+cpp
+Kopieren
+Bearbeiten
+Spread  s_t = ADA − β·BTC
+z-Score z_t = (s_t − μ) / σ   (roll. 60-Tage-Fenster)
+Einstieg
+
+Long ADA / Short BTC bei z ≤ −2,0
+
+Short ADA / Long BTC bei z ≥ +2,0
+
+Ausstieg
+
+Schließe beide Legs, wenn |z| < 0,5 oder nach 72 h.
+
+4 Positions- & Risiko­management
+r
+Kopieren
+Bearbeiten
+notional <- min(equity * 0.02, 100)   # Hard-Cap 100 €
+Hebel ≤ 3×.
+
+Gleichzeitige Market-Orders; Order-IDs protokollieren.
+
+5 Backtesting (Walk-Forward)
+Pakete: quantstrat, blotter, FinancialInstrument.
+
+Regeln aus §3/§4 als applyStrategy.
+
+Kennzahlen: kum. Rendite, Sharpe, max DD, Trade-Log, Equity-PNG.
+
+6 Deployment (Hetzner CX22 / Ubuntu 24.04)
+Repo nach /home/trading/ada-trading clonen.
+
+systemd-Service (siehe Block unten) anlegen.
+
+Secrets via dotenv.
+
+Cron-Job: nächtliches backtest (03:00 UTC).
+
+ini
+Kopieren
+Bearbeiten
+[Unit]
+Description=ADA/BTC Stat-Arb R Bot
+After=network.target
+
+[Service]
+Type=simple
+User=trading
+WorkingDirectory=/home/trading/ada-trading/r_analysis
+ExecStart=/usr/bin/Rscript bot_ada_btc_stat_arb.R live
+Restart=always
+StandardOutput=append:/home/trading/logs/stat_arb_bot.log
+StandardError=append:/home/trading/logs/stat_arb_bot.err
+7 Logging & Alerts
+Trades → trades.sqlite (RSQLite).
+
+Telegram-Alarm, falls Tages-PnL < −3 %.
+
+Logs älter als 30 Tage archivieren.
+
+Deliverables
+bot_ada_btc_stat_arb.R (Modi backtest, live).
+
+README.md (Setup, Pakete, Deployment-How-To).
+
+Phase 1 ausschließlich Bitget-Sandbox (sandbox = TRUE) für 48 h.
+
+Kritische Regeln
+Live-Risikobudget in Phase 1 strikt ≤ 100 €.
+
+Automatischer Handels-Stopp bei 7-Tage-Drawdown > 10 %.
+
+Code sauber kommentiert (Englisch), tidyverse-Style, lintr-clean.

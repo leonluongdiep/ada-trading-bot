@@ -29,12 +29,6 @@
  # end_silent_mode <- function() { sink(type = "message"); sink(type = "output"); cat("✅ Analysis complete!\n") }
 #}
 
-# Lade Console Management System
-source("c:/freeding/tbot202506/r_analysis/r_console_output_manager.r")
-
-# Starte Silent Mode mit automatischem Log
-start_silent_mode("file")
-
 
 # Lade Console Management System
 source("c:/freeding/tbot202506/r_analysis/r_console_output_manager.r")
@@ -685,6 +679,55 @@ if (EXECUTE_STRATEGIC_ORDERS) {
               strategic_discount_pct))
 }
 
+
+# ==========================================================================================================
+# 🎯 additional enhanced funtion
+# ==========================================================================================================
+
+# Aktiviere Live Trading falls noch nicht aktiv
+EXECUTE_LIVE_ORDERS <- FALSE
+
+
+# # Storniere eine der beiden SL-Orders
+# cancel_result <- bitget_request("/api/mix/v1/plan/cancelPlan", "POST", list(
+#   orderId = "1326175002606247936",  # Neuere Order
+#   symbol = "ADAUSDT_UMCBL",
+#   marginCoin = "USDT", 
+#   planType = "normal_plan"
+# ))
+
+
+# Prüfe ob erfolgreich
+# if (!is.null(cancel_result) && cancel_result$code == "00000") {
+#   cat("✅ TP Order bei 0.6500 erfolgreich storniert!\n")
+# } else {
+#   cat("❌ Stornierung fehlgeschlagen\n")
+# }
+
+# Setze die neuen, höheren TP-Levels
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '2000', 0.7000)   # Juli Target
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '2000', 0.7500)   # August Target  
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '2000', 0.8500)   # September Target
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '1500', 0.9000)   # Q3 Bullish Target
+
+# 500 Kontrakte bleiben ohne TP für Moonshot (1.00+ USDT)
+
+
+#place_sl_simple('ADAUSDT_UMCBL', 'long', '2000', 0.488)   # Q3 Bullish Target
+
+get_current_plan_orders('ADAUSDT_UMCBL')
+
+get_enhanced_ticker_data()              # Enhanced ticker with realistic 24h change
+get_enhanced_orderbook()                # Orderbook spread analysis
+get_enhanced_trades()                   # Smart trades DataFrame parsing
+calculate_market_sentiment()            # 5-factor sentiment with fallbacks
+get_enhanced_market_data()              # Complete market data collection
+complete_trading_analysis_enhanced()    # Main enhanced analysis function
+get_enhanced_market_data()
+get_open_interest()
+get_orderbook_depth()
+
+ls()
 # ==========================================================================================================
 # 🎯 END OF SYNTAX-CORRECTED EXECUTION
 # ==========================================================================================================
@@ -749,4 +792,5 @@ cat(sprintf("   Strategy: Wait for dip to %.4f USDT\n", STRATEGIC_PRICE))
 # ==========================================================================================================
 # 🎯 END OF ENHANCED EXECUTION WITH STRATEGIC ORDERS
 # ==========================================================================================================
+
 
