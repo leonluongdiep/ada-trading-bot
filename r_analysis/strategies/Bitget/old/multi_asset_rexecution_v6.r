@@ -131,6 +131,27 @@ if (file.exists("c:/freeding/tbot202506/r_analysis/strategies/Bitget/algo_oi_hea
   cat("✅ OI Heatmap system loaded\n")
 }
 
+# 5. trailing_sl_system
+if (file.exists("c:/freeding/tbot202506/r_analysis/strategies/Bitget/trailing_sl_system.r")) {
+  source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/trailing_sl_system.r")
+  cat("✅ OI Htraiiling_sl_system\n")
+}
+
+# 6. oi_table_dashboard
+if (file.exists("c:/freeding/tbot202506/r_analysis/strategies/Bitget/oi_table_dashboard.r")) {
+  source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/oi_table_dashboard.r")
+  cat("✅ OI Htraiiling_sl_system\n")
+}
+
+
+# 7.  ALTCOIN RALLY TRIGGERS
+if (file.exists("c:/freeding/tbot202506/r_analysis/strategies/Bitget/altcoin_rally_triggers.r")) {
+  source("c:/freeding/tbot202506/r_analysis/strategies/Bitget/altcoin_rally_triggers.r")
+  cat("✅ OI Htraiiling_sl_system\n")
+}
+
+
+
 cat("✅ All core systems loaded successfully\n")
 
 # ==========================================================================================================
@@ -1033,51 +1054,79 @@ cat("   check_positions_universal()  # All assets\n")
 
 create_subheader("Live Trading Configuration", "🚨")
 
-# Trading configuration for both assets
-EXECUTE_LIVE_ORDERS <- TRUE  # Set to TRUE to enable live trading
-
-if (EXECUTE_LIVE_ORDERS) {
-  cat("🚨 LIVE TRADING ENABLED - Orders will be placed on Bitget!\n")
-  cat("⚠️  WARNING: Real money at risk!\n")
-} else {
-  cat("🎮 SIMULATION MODE - No real orders will be placed\n")
-  cat("💡 Set EXECUTE_LIVE_ORDERS <- TRUE to enable live trading\n")
-}
-
-cat("\n🔧 Trading Configuration:\n")
-for (symbol in PORTFOLIO_ASSETS) {
-  config <- MULTI_ASSET_CONFIG[[symbol]]
-  cat(sprintf("   %s %s: Price decimals=%d, Tick size=%s, Min size=%s\n",
-              config$icon, config$name, config$price_decimals, 
-              config$tick_size, config$min_size))
-}
-
-
-
-# ALGO TP/SL Orders basierend auf OI Heatmap
-#place_tp_simple('ALGOUSDT_UMCBL', 'long', '5000', 0.1975)  # Erste Resistance
-#place_tp_simple('ALGOUSDT_UMCBL', 'long', '5000', 0.2050)  # +5% Level
-place_tp_simple('ALGOUSDT_UMCBL', 'long', '5000', 0.2150)  # +10% Level
-
-# Protective Stop Loss
-place_sl_simple('ALGOUSDT_UMCBL', 'long', '15000', 0.1650)  # -5% Support
 
 
 # ==========================================================================================================
-# 🎯 open interest 
+# 🎯 Trading configuration for both assets
 # ==========================================================================================================
 
-#---ADA heatmap
+# 🎯  Trading configuration for both assets
+#  ----- Set to TRUE to enable live trading --------
+
+#EXECUTE_LIVE_ORDERS <- TRUE
+
+
+
+
+# Phase 3: Disaster Protection
+#place_sl_simple('ALGOUSDT_UMCBL', 'long', '12000', 0.1788)
+
+# Tiered TP orders for ADA
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '5000', 0.750)
+
+# Protective SL
+#place_sl_simple('ADAUSDT_UMCBL', 'long', '5000', 0.7213)
+
+#place_tp_simple('ADAUSDT_UMCBL', 'long', '5000', 0.6930)  # Psychological level
+
+#- strategic order-----
+#place_strategic_limit_order('ADAUSDT_UMCBL', 'open_long', '5000', 0.6930)
+
+
+# ==========================================================================================================
+# 🎯 trailing_sl_percent
+# ==========================================================================================================
+
+
+# 🔷 ADA: 5000 contracts @ current 0.7341 USDT
+
+#place_trailing_sl_percent('ADAUSDT_UMCBL', 'long', '5000', 2.0)
+
+# → SL bei 0.7194 USDT (-2.0% = schützt +651 USDT Gewinne)
+
+# ⚫ ALGO: 30,000 contracts @ current 0.2256 USDT  
+#place_trailing_sl_percent('ALGOUSDT_UMCBL', 'long', '45000', 15.0)
+# → SL bei 0.2193 USDT (-2.8% = schützt +485 USDT Gewinne)
+
+
+
+
+# ==========================================================================================================
+# ------------------- heatmap heatmap heatmap heatmap heatmap-------------------------------
+# ==========================================================================================================
+
+
+#-------------------------------------  heatmap
 
 cat("🔴 The red dashed line shows the LIVE ADA price from Bitget!\n")
+
+
+
+#----------------ADA heatmap----------------------------
+
+# Basis-Heatmap generieren
 live_ada_heatmap <- generate_dynamic_ada_oi_heatmap()
-live_ada_heatmap$heatmap  # Zeigt interaktive Heatmap mit roter Preis-Linie # Vollständige Abdeckung ohne weiße Bereiche!
+
+# Interaktive Anzeige
+live_ada_heatmap$heatmap
 
 # Zeige Top OI-Konzentrationen im vollen Range:
 print(live_ada_heatmap$key_levels)
 
 
-#--Algo heatmap
+
+#----------------ALGO heatmap----------------------------
+
 
 # Basis-Heatmap generieren
 live_algo_heatmap <- generate_dynamic_algo_oi_heatmap()
@@ -1085,16 +1134,92 @@ live_algo_heatmap <- generate_dynamic_algo_oi_heatmap()
 # Interaktive Anzeige
 live_algo_heatmap$heatmap
 
-# Vergleich mit ADA
-comparison <- compare_algo_ada_heatmaps()
-
-# Auto-Refresh für Live-Monitoring
-#refresh_algo_heatmap(60, 5)
-
 # Zeige Top OI-Konzentrationen im vollen Range:
 print(live_algo_heatmap$key_levels)
 
 
+OI-ANALYSIS TABLE SYSTEM - KOMPLETT KORRIGIERT!
+
+  
+  
+  
+  # ==========================================================================================================
+# ------------------- Vollständige AGLO ADA -Analysen-------------------------------
+# ==========================================================================================================
+
+
+
+
+# 2. Vollständige ALGO-Analyse:
+algo_analysis <- run_institutional_oi_analysis('ALGOUSDT_UMCBL')
+
+
+# 3. Schneller Dashboard-Blick:
+algo_dashboard <- quick_algo_dashboard()
+
+
+
+#----------------Vollständige ADA Analyse
+
+# 2. Vollständige ALGO-Analyse:
+ada_analysis <- run_institutional_oi_analysis('ADAUSDT_UMCBL')
+
+
+# 3. Schneller Dashboard-Blick:
+ada_dashboard <- quick_ada_dashboard()
+
+
+
+# ---------- Multi-Asset Vergleich: ------------------
+comparison <- quick_multi_asset_comparison()
+
+
+
+
+#----------Vergleich mit ALGO vs ADA----------------------------------------
+#
+#comparison <- compare_algo_ada_heatmaps()
+
+# Zeige Top OI-Konzentrationen im vollen Range:
+#print(comparison)
+
+# 🛡️ FREITAG-DIP DEFENSE MIT AKTUELLEN ZAHLEN
+
+
+
+#┌────────────────────────────────────────────────────────────────────────────────┐#
+#│                        🚀 ALTCOIN RALLY TRIGGERS 🚀                          │
+#├────────────────────────────────────────────────────────────────────────────────┤
+#│ 🟠⚡ MASTER SIGNAL: WEAK_ALTCOIN_RALLY_SIGNAL                     │
+#│ 🎯 Score: 30.0% | 💡 WATCH CLOSELY - Some positive signs │
+#├────────────────────────────────────────────────────────────────────────────────┤
+
+
+# In deiner rexecution.r, nach der Portfolio-Analyse hinzufügen:
+cat("\n🚀 CHECKING ALTCOIN RALLY TRIGGERS...\n")
+altcoin_triggers <- run_altcoin_rally_monitoring()
+
+# Zusätzlich: Speichere Ergebnisse für Trend-Tracking
+trigger_history_file <- "c:/freeding/tbot202506/logs/altcoin_triggers_history.rds"
+if (file.exists(trigger_history_file)) {
+  trigger_history <- readRDS(trigger_history_file)
+} else {
+  trigger_history <- list()
+}
+
+# Füge aktuellen Trigger hinzu
+trigger_history[[length(trigger_history) + 1]] <- list(
+  timestamp = Sys.time(),
+  score = altcoin_triggers$master_signal$score_percentage,
+  signal = altcoin_triggers$master_signal$master_signal
+)
+
+# Behalte nur letzte 100 Einträge
+if (length(trigger_history) > 100) {
+  trigger_history <- tail(trigger_history, 100)
+}
+
+saveRDS(trigger_history, trigger_history_file)
 
 
 # ==========================================================================================================
