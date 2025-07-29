@@ -21,3 +21,5 @@ clear_workspace()
 
 # Alles löschen, außer „model“ und „config“
 #clear_workspace(keep = c("model", "config"))
+
+

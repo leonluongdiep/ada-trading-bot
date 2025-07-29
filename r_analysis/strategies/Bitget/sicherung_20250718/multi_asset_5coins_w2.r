@@ -1125,3 +1125,7 @@ EXECUTE_TRAILING_ORDERS <- FALSE  # Nur Info, keine Orders
 # Extrahiere alle relevanten Daten aus dem Log und strukturiere sie entsprechend dieser Vorlage
 
 
+✅ bitget_request()           # Core API Function - BEREITS VORHANDEN
+✅ get_current_positions()    # Position Check - BEREITS VORHANDEN  
+✅ get_current_plan_orders()  # Orders Check - BEREITS VORHANDEN
+
