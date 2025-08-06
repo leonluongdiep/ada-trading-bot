@@ -27,12 +27,6 @@ source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/fixed_summary_system
 source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/multi_asset_fix_complete.r")
 
 
-#headmaps system
-source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/fixed_algo_heatmap.r")
-source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/heatmap_explanation.r")
-source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/ggplot2_heatmap_viz.r")
-
-
 
 force_portfolio_update()
 
@@ -44,6 +38,8 @@ protect_position("ALGOUSDT_UMCBL")   # 5.96 USDT Gewinn sichern
 protect_position("ADAUSDT_UMCBL")    # 6.16 USDT Gewinn sichern
 protect_position("VETUSDT_UMCBL")    # 5.48 USDT Gewinn sichern
 protect_position("ICPUSDT_UMCBL")    # 12.40 USDT Gewinn sichern
+protect_position("BTCUSDT_UMCBL")    # 12.40 USDT Gewinn sichern
+protect_position("ETHUSDT_UMCBL")    # 12.40 USDT Gewinn sichern
 
 
 
@@ -58,23 +54,43 @@ prices_only()
 get_current_positions(debug = TRUE)     
 
 
+#headmaps system
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/fixed_algo_heatmap.r")
+
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/heatmap_explanation.r")
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/ggplot2_heatmap_viz.r")
+
+
+
 explain_all()                 # Komplette Score-Erklärung
 algo_oi_dashboard()          # ALGO Dashboard
-
-# EINFACHSTE OPTION - One-Click ALGO Heatmap:
-algo_heatmap()
-
-# EMPFOHLEN - Komplettes ALGO Dashboard:
-algo_oi_dashboard()
 
 
 # Heatmap-Daten erstellen (braucht fixed_algo_heatmap.r)
 heatmap_result <- algo_heatmap()
-
-
 # Visualisierung erstellen (braucht ggplot2_heatmap_viz.r)
 plots <- visualize_my_heatmap(heatmap_result)
 print(plots$interactive)
+
+
+
+#---- ETC -------head map
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/etc_heatmap.r")
+ETC_oi_dashboard()
+
+#---- ADA -----head map
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/ADA_heatmap.r")
+ADA_oi_dashboard()
+
+#----- BTC ------head map
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/BTC_heatmap.r")
+BTC_oi_dashboard()
+
+
+#----- ETH ------head map
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/ETH_heatmap.r")
+ETH_oi_dashboard()
+
 
 
 getwd()
@@ -102,15 +118,3 @@ quick_market_check()
 # 4. Tägliche erweiterte Analyse
 daily_market_check_enhanced()
 
-
-# 1. Fixes anwenden
-apply_complete_multi_asset_fixes()
-
-# 2. Vollständige Analyse (alle 5 Assets)
-complete_market_check()
-
-# 3. Schnelle Überprüfung
-quick_market_check()
-
-# 4. Tägliche erweiterte Analyse
-daily_market_check_enhanced()
