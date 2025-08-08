@@ -26,6 +26,8 @@ source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/fixed_summary_system
 #summary_system
 source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/multi_asset_fix_complete.r")
 
+# Source the base module first
+source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/onchain_metrics_enhanced.r")
 
 
 force_portfolio_update()
@@ -62,7 +64,7 @@ source("C:/freeding/tbot202506/r_analysis/strategies/Bitget/ggplot2_heatmap_viz.
 
 
 
-explain_all()                 # Komplette Score-Erklärung
+#explain_all()                 # Komplette Score-Erklärung
 algo_oi_dashboard()          # ALGO Dashboard
 
 
